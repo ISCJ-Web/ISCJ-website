@@ -9,7 +9,7 @@ const contactDetails = [
   {
     icon: MapPin,
     label: "Address",
-    value: "4145 Route 1 South\nMonmouth Junction, NJ 08852",
+    value: "4145 US-1\nMonmouth Junction, NJ 08852",
   },
   {
     icon: Phone,
