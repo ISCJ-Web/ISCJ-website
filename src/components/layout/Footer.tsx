@@ -1,0 +1,68 @@
+import { Container } from "@/components/ui/Container";
+
+const quickLinks = [
+  { label: "Home", href: "#home" },
+  { label: "About", href: "#about" },
+  { label: "Prayer Times", href: "#prayer-times" },
+  { label: "Events", href: "#events" },
+  { label: "Contact", href: "#contact" },
+];
+
+export function Footer() {
+  return (
+    <footer className="bg-primary text-white">
+      <Container>
+        <div className="grid gap-12 py-16 md:grid-cols-3">
+          {/* Branding */}
+          <div>
+            <h3 className="text-xl font-bold">ISCJ</h3>
+            <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/60">
+              The Islamic Society of Central Jersey — serving the community
+              through worship, education, and outreach.
+            </p>
+          </div>
+
+          {/* Quick links */}
+          <div>
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-white/40">
+              Quick Links
+            </h4>
+            <ul className="mt-4 space-y-3">
+              {quickLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className="text-sm text-white/70 transition-colors hover:text-white"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact summary */}
+          <div>
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-white/40">
+              Contact
+            </h4>
+            <address className="mt-4 space-y-2 text-sm not-italic leading-relaxed text-white/70">
+              <p>4145 Route 1 South</p>
+              <p>Monmouth Junction, NJ 08852</p>
+              <p className="pt-2">(732) 329-0003</p>
+              <p>info@iscj.org</p>
+            </address>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="border-t border-white/10 py-6">
+          <p className="text-center text-xs text-white/40">
+            &copy; {new Date().getFullYear()} Islamic Society of Central Jersey.
+            All rights reserved.
+          </p>
+        </div>
+      </Container>
+    </footer>
+  );
+}
