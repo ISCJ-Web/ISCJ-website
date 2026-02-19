@@ -11,6 +11,10 @@ import type { NavLink } from "@/types";
 
 const MotionLink = motion.create(Link);
 
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "#about" },
@@ -62,7 +66,7 @@ export function Navbar() {
           </div>
 
           {/* Center: Logo + org name */}
-          <Link href="/" className="flex items-center gap-3 md:flex-col md:gap-1">
+          <Link href="/" onClick={scrollToTop} className="flex items-center gap-3 md:flex-col md:gap-1">
             <span className="hidden text-[11px] font-medium uppercase tracking-widest text-white/70 md:block">
               Islamic Society of Central Jersey
             </span>
@@ -132,6 +136,7 @@ export function Navbar() {
                 ) : (
                   <Link
                     href={link.href}
+                    onClick={scrollToTop}
                     className="inline-block py-3 text-sm font-medium text-white/80 transition-colors hover:text-white"
                   >
                     {link.label}
@@ -189,7 +194,7 @@ export function Navbar() {
                   <MotionLink
                     key={link.href}
                     href={link.href}
-                    onClick={() => setMobileOpen(false)}
+                    onClick={() => { setMobileOpen(false); scrollToTop(); }}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 + i * 0.05 }}

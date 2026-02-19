@@ -1,6 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
 
 const quickLinks = [
   { label: "Home", href: "/" },
@@ -17,7 +23,7 @@ export function Footer() {
         <div className="grid gap-12 py-16 md:grid-cols-3">
           {/* Branding */}
           <div>
-            <Link href="/" className="flex items-center gap-3">
+            <Link href="/" onClick={scrollToTop} className="flex items-center gap-3">
               <Image
                 src="/images/iscj-white-logo.png"
                 alt="ISCJ Logo"
@@ -55,6 +61,7 @@ export function Footer() {
                   ) : (
                     <Link
                       href={link.href}
+                      onClick={scrollToTop}
                       className="text-sm text-white/70 transition-colors hover:text-white"
                     >
                       {link.label}
