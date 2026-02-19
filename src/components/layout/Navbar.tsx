@@ -11,8 +11,11 @@ import type { NavLink } from "@/types";
 
 const MotionLink = motion.create(Link);
 
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: "smooth" });
+function scrollToTop(e: React.MouseEvent) {
+  if (window.location.pathname === "/" || window.location.pathname.endsWith("/ISCJ-website/") || window.location.pathname.endsWith("/ISCJ-website")) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 }
 
 const navLinks: NavLink[] = [
@@ -194,7 +197,7 @@ export function Navbar() {
                   <MotionLink
                     key={link.href}
                     href={link.href}
-                    onClick={() => { setMobileOpen(false); scrollToTop(); }}
+                    onClick={(e: React.MouseEvent) => { setMobileOpen(false); scrollToTop(e); }}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 + i * 0.05 }}

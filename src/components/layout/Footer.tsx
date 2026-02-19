@@ -4,8 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: "smooth" });
+function scrollToTop(e: React.MouseEvent) {
+  if (window.location.pathname === "/" || window.location.pathname.endsWith("/ISCJ-website/") || window.location.pathname.endsWith("/ISCJ-website")) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 }
 
 const quickLinks = [
