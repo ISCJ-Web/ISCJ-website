@@ -1,52 +1,117 @@
 "use client";
 
-import { Clock } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ScrollReveal, ScrollRevealItem } from "@/components/motion/ScrollReveal";
-import type { PrayerTime } from "@/types";
+import { FadeIn } from "@/components/motion/FadeIn";
 
-const prayerTimes: PrayerTime[] = [
-  { name: "Fajr", time: "5:45 AM" },
-  { name: "Dhuhr", time: "1:00 PM" },
-  { name: "Asr", time: "4:30 PM" },
-  { name: "Maghrib", time: "6:15 PM" },
-  { name: "Isha", time: "7:45 PM" },
-  { name: "Jummah", time: "1:30 PM" },
+/*
+  ──────────────────────────────────────────────
+  UPDATE PRAYER TIMES HERE EACH MONTH
+  ──────────────────────────────────────────────
+*/
+
+const month = "February";
+const year = 2026;
+
+const iqamaSchedule = [
+  {
+    range: "1st – 10th",
+    note: "*Sundays Dhuhr is still 1:10 PM",
+    times: [
+      { name: "Fajr", time: "6:15 AM" },
+      { name: "Dhuhr", time: "12:30 PM" },
+      { name: "Asr", time: "3:45 PM" },
+      { name: "Maghrib", time: "On Time" },
+      { name: "Isha", time: "8:00 PM" },
+    ],
+  },
+  {
+    range: "11th – 17th",
+    note: "*Sundays Dhuhr is still 1:10 PM",
+    times: [
+      { name: "Fajr", time: "6:00 AM" },
+      { name: "Dhuhr", time: "12:30 PM" },
+      { name: "Asr", time: "3:45 PM" },
+      { name: "Maghrib", time: "On Time" },
+      { name: "Isha", time: "8:00 PM" },
+    ],
+  },
 ];
+
+const jummahTimes = "12:00 PM and 1:10 PM";
+
+const prayers = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
 
 export function PrayerTimesSection() {
   return (
-    <section id="prayer-times" className="bg-primary py-24 lg:py-32">
+    <section id="prayer-times" className="bg-white py-24 lg:py-32">
       <Container>
         <SectionHeading
-          title="Prayer Times"
-          subtitle="Join us for daily congregational prayers. Times are updated regularly."
-          light
+          title={`${month} ${year} Iqama Times`}
+          subtitle="Join us for daily congregational prayers. Times are updated each month."
         />
 
-        <ScrollReveal className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6 lg:gap-6">
-          {prayerTimes.map((prayer) => (
-            <ScrollRevealItem key={prayer.name}>
-              <div className="group rounded-2xl border border-white/10 bg-white/5 p-6 text-center backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:bg-white/10">
-                <Clock
-                  className="mx-auto mb-3 h-5 w-5 text-white/40 transition-colors group-hover:text-white/70"
-                  strokeWidth={1.5}
-                />
-                <p className="text-sm font-medium uppercase tracking-wider text-white/60">
-                  {prayer.name}
-                </p>
-                <p className="mt-2 text-2xl font-bold text-white">
-                  {prayer.time}
-                </p>
+        <FadeIn>
+          <div className="mx-auto max-w-4xl">
+            {/* Table */}
+            <div className="overflow-hidden rounded-2xl border border-border">
+              {/* Column headers */}
+              <div className="grid bg-primary text-white" style={{ gridTemplateColumns: `1fr ${iqamaSchedule.map(() => "1fr").join(" ")}` }}>
+                <div className="px-5 py-4 text-sm font-medium uppercase tracking-wider text-white/60">
+                  Prayer
+                </div>
+                {iqamaSchedule.map((block) => (
+                  <div key={block.range} className="px-5 py-4 text-center">
+                    <span className="text-sm font-bold">
+                      {block.range}
+                    </span>
+                  </div>
+                ))}
               </div>
-            </ScrollRevealItem>
-          ))}
-        </ScrollReveal>
 
-        <p className="mt-10 text-center text-sm text-white/40">
-          Times shown are approximate. Please verify before attending.
-        </p>
+              {/* Prayer rows */}
+              {prayers.map((name, i) => (
+                <div
+                  key={name}
+                  className={`grid items-center ${i % 2 === 0 ? "bg-white" : "bg-surface"}`}
+                  style={{ gridTemplateColumns: `1fr ${iqamaSchedule.map(() => "1fr").join(" ")}` }}
+                >
+                  <div className="px-5 py-3.5 text-sm font-semibold uppercase tracking-wider text-text-secondary">
+                    {name}
+                  </div>
+                  {iqamaSchedule.map((block) => {
+                    const prayer = block.times.find((t) => t.name === name);
+                    return (
+                      <div key={block.range} className="px-5 py-3.5 text-center text-[15px] font-bold text-text-primary">
+                        {prayer?.time}
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
+
+              {/* Notes row */}
+              {iqamaSchedule.some((b) => b.note) && (
+                <div className="border-t border-border bg-surface/60 px-5 py-3">
+                  <p className="text-center text-xs italic text-text-secondary">
+                    {iqamaSchedule[0].note}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Jummah pill */}
+            <div className="mt-5 flex items-center justify-center gap-3 rounded-xl bg-primary/5 px-6 py-4">
+              <span className="text-sm font-semibold uppercase tracking-wider text-text-secondary">
+                Jummah
+              </span>
+              <span className="h-4 w-px bg-primary/20" />
+              <span className="text-[15px] font-bold text-primary">
+                {jummahTimes}
+              </span>
+            </div>
+          </div>
+        </FadeIn>
       </Container>
     </section>
   );

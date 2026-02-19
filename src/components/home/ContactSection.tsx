@@ -76,7 +76,7 @@ export function ContactSection() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="grayscale transition-all duration-500 hover:grayscale-0"
+                className=""
               />
             </div>
           </FadeIn>
