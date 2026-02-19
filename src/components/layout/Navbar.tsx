@@ -85,7 +85,7 @@ export function Navbar() {
               />
             ) : (
               <Image
-                src="/images/logo-placeholder.svg"
+                src="./images/logo-placeholder.svg"
                 alt="ISCJ Logo Placeholder"
                 width={56}
                 height={56}
@@ -172,7 +172,7 @@ export function Navbar() {
                   Islamic Society of Central Jersey
                 </span>
                 <Image
-                  src={logoError ? "/images/logo-placeholder.svg" : "/images/iscj-white-logo.png"}
+                  src={logoError ? "./images/logo-placeholder.svg" : "./images/iscj-white-logo.png"}
                   alt="ISCJ Logo"
                   width={48}
                   height={48}

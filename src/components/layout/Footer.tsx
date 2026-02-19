@@ -28,7 +28,7 @@ export function Footer() {
           <div>
             <Link href="/" onClick={scrollToTop} className="flex items-center gap-3">
               <Image
-                src="/images/iscj-white-logo.png"
+                src="./images/iscj-white-logo.png"
                 alt="ISCJ Logo"
                 width={48}
                 height={48}
