@@ -65,7 +65,7 @@ export function Navbar() {
             </span>
             {!logoError ? (
               <Image
-                src="/images/iscj-white-logo.png"
+                src="./images/iscj-white-logo.png"
                 alt="ISCJ Logo"
                 width={56}
                 height={56}

@@ -24,7 +24,7 @@ export function HeroSection() {
     >
       {/* Background — replace with a real mosque photo */}
       <motion.div className="absolute inset-0" style={{ y: bgY }}>
-        <Image src="/images/iscj1.jpg" alt="" fill className="object-cover" priority />
+        <Image src="./images/iscj1.jpg" alt="" fill className="object-cover" priority />
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent" />
       </motion.div>
 
