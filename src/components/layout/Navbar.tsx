@@ -4,9 +4,12 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, Mail, Facebook, Instagram, Youtube } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/utils";
 import type { NavLink } from "@/types";
+
+const MotionLink = motion.create(Link);
 
 const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
@@ -59,7 +62,7 @@ export function Navbar() {
           </div>
 
           {/* Center: Logo + org name */}
-          <a href="/" className="flex items-center gap-3 md:flex-col md:gap-1">
+          <Link href="/" className="flex items-center gap-3 md:flex-col md:gap-1">
             <span className="hidden text-[11px] font-medium uppercase tracking-widest text-white/70 md:block">
               Islamic Society of Central Jersey
             </span>
@@ -88,7 +91,7 @@ export function Navbar() {
               Society of<br />
               Central Jersey
             </span>
-          </a>
+          </Link>
 
           {/* Right: Donate button + mobile toggle */}
           <div className="flex items-center gap-4">
@@ -119,12 +122,21 @@ export function Navbar() {
           <ul className="flex items-center justify-center gap-8">
             {navLinks.map((link) => (
               <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="inline-block py-3 text-sm font-medium text-white/80 transition-colors hover:text-white"
-                >
-                  {link.label}
-                </a>
+                {link.href.startsWith("#") ? (
+                  <a
+                    href={link.href}
+                    className="inline-block py-3 text-sm font-medium text-white/80 transition-colors hover:text-white"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    href={link.href}
+                    className="inline-block py-3 text-sm font-medium text-white/80 transition-colors hover:text-white"
+                  >
+                    {link.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
@@ -160,19 +172,33 @@ export function Navbar() {
                 />
               </motion.div>
 
-              {navLinks.map((link, i) => (
-                <motion.a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + i * 0.05 }}
-                  className="text-2xl font-semibold text-primary transition-colors hover:text-primary-light"
-                >
-                  {link.label}
-                </motion.a>
-              ))}
+              {navLinks.map((link, i) =>
+                link.href.startsWith("#") ? (
+                  <motion.a
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 + i * 0.05 }}
+                    className="text-2xl font-semibold text-primary transition-colors hover:text-primary-light"
+                  >
+                    {link.label}
+                  </motion.a>
+                ) : (
+                  <MotionLink
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 + i * 0.05 }}
+                    className="text-2xl font-semibold text-primary transition-colors hover:text-primary-light"
+                  >
+                    {link.label}
+                  </MotionLink>
+                )
+              )}
 
               <motion.a
                 href="#donate"
